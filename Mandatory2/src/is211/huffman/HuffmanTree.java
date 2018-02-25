@@ -26,11 +26,11 @@ public class HuffmanTree {
         //Test it
         //testMap(nodeMap);
 
-        //Build the tree
+        //Build the tree and set codes
         HuffmanNode root = buildTree(nodeQueue);
-        setHuffmanCodes(nodeQueue);
 
-        //Print the tree
+        //Print the tree to test
+        printTree(root);
     }
 
     private void countFrequencies(File file, HashMap<Character, HuffmanNode> nodeMap) throws FileNotFoundException {
@@ -73,6 +73,7 @@ public class HuffmanTree {
 
     private HuffmanNode buildTree(PriorityQueue<HuffmanNode> nodes){
         HuffmanNode root = null;
+
         while (nodes.size() > 1) {
             HuffmanNode least1 = nodes.poll();
             HuffmanNode least2 = nodes.poll();
@@ -88,26 +89,43 @@ public class HuffmanTree {
 
             nodes.add(combined);
             root = combined;
+            traverse(root,"");
         }
         return root;
     }
 
-    private void setHuffmanCodes(PriorityQueue<HuffmanNode> nodes){
-        while (nodes.size() > 1) {
-            HuffmanNode node = nodes.poll();
-            HuffmanNode leftNode = node.getLeft();
-            HuffmanNode rightNode = node.getRight();
+    private void traverse(HuffmanNode root, String code){
+        if (root.getLeft() == null && root.getRight() == null) {
+            root.setHuffmanCode(code);
 
-            leftNode.setHuffmanCode(leftNode.getHuffmanCode()*10);
-            rightNode.setHuffmanCode(rightNode.getHuffmanCode()+1);
+        } else {
+            traverse(root.getRight(),code + "1");
+            traverse(root.getLeft(),code + "0");
         }
     }
 
-    private void printHuffmanCodes(HuffmanNode root){
-
+    private void printTree(HuffmanNode rootNode) {
+        if (rootNode.getRight() == null && rootNode.getLeft() == null) {
+            System.out.println("Character " + rootNode.getCharacter() + " Has the code of " + rootNode.getHuffmanCode());
+        }
+        else if (rootNode.getRight() == null){
+            printTree(rootNode.getLeft());
+        }
+        else if (rootNode.getLeft() == null){
+            printTree(rootNode.getRight());
+        }
+        else if (rootNode.getLeft() != null && rootNode.getRight() != null){
+            printTree(rootNode.getRight());
+            printTree(rootNode.getLeft());
+        }
     }
+    
+    private void setCode(HuffmanNode node, String code){
+        node.setHuffmanCode(code);
+    }
+
     public int getTreeSize() {
-        return treeSize;
+        return this.treeSize;
     }
 
     public void setTreeSize(int treeSize) {

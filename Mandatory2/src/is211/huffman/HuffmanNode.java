@@ -1,12 +1,14 @@
 package is211.huffman;
 
+
 import java.util.ArrayList;
 
 public class HuffmanNode implements Comparable<HuffmanNode> {
 
     private int Count;
-    private int HuffmanCode;
+    private String HuffmanCode;
     private char Character;
+    private ArrayList<Integer> HuffmanCodeArray;
     private HuffmanNode Parent;
     private HuffmanNode Left;
     private HuffmanNode Right;
@@ -15,6 +17,8 @@ public class HuffmanNode implements Comparable<HuffmanNode> {
     public HuffmanNode(int Count, char Character){
         this.Count = Count;
         this.Character = Character;
+        this.HuffmanCode = "";
+        this.HuffmanCodeArray = new ArrayList<>();
         this.Parent = null;
         this.Left = null;
         this.Right = null;
@@ -22,10 +26,13 @@ public class HuffmanNode implements Comparable<HuffmanNode> {
 
     public HuffmanNode(int Count){
         this.Count = Count;
+        this.HuffmanCode = "";
+        this.HuffmanCodeArray = new ArrayList<>();
         this.Parent = null;
         this.Left = null;
         this.Right = null;
     }
+
     public HuffmanNode(HuffmanNode Parent, HuffmanNode Left, HuffmanNode Right){
         this.Parent = Parent;
         this.Left = Left;
@@ -54,14 +61,6 @@ public class HuffmanNode implements Comparable<HuffmanNode> {
 
     public void setCount(int count) {
         Count = count;
-    }
-
-    public int getHuffmanCode() {
-        return HuffmanCode;
-    }
-
-    public void setHuffmanCode(int huffmanCode) {
-        this.HuffmanCode = huffmanCode;
     }
 
     public char getCharacter() {
@@ -96,5 +95,19 @@ public class HuffmanNode implements Comparable<HuffmanNode> {
         Right = right;
     }
 
+    public void setHuffmanCode(String newBlock) {
+        this.HuffmanCode = this.HuffmanCode + newBlock;
+    }
 
+    public String getHuffmanCode(){
+        return this.HuffmanCode;
+    }
+
+    public void setHuffmanCodeArray(ArrayList<Integer> codeArray){
+        this.HuffmanCodeArray = codeArray;
+    }
+
+    public ArrayList<Integer> getHuffmanCodeArray() {
+        return HuffmanCodeArray;
+    }
 }
