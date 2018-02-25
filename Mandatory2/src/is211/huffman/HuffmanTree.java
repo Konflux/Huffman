@@ -24,10 +24,13 @@ public class HuffmanTree {
         fillQueue(nodeMap, nodeQueue);
 
         //Test it
-        //testMap(nodeMap);
+        testMap(nodeMap);
 
         //Build the tree and set codes
         HuffmanNode root = buildTree(nodeQueue);
+
+        //Set the codes
+        traverse(root, "");
 
         //Print the tree to test
         printTree(root);
@@ -89,7 +92,7 @@ public class HuffmanTree {
 
             nodes.add(combined);
             root = combined;
-            traverse(root,"");
+
         }
         return root;
     }
@@ -119,7 +122,7 @@ public class HuffmanTree {
             printTree(rootNode.getLeft());
         }
     }
-    
+
     private void setCode(HuffmanNode node, String code){
         node.setHuffmanCode(code);
     }
